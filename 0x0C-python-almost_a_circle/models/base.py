@@ -6,63 +6,56 @@ import turtle
 
 
 class Base:
-     """Represent the base model.
-
+    """Represent the base model.
     Represents the "base" for all other classes in project 0x0C*.
 
     Attributes:
         __nb_objects (int): The number of instantiated Bases.
     """
-     
-     __nb_objects = 0
 
-    def __init__(self, id=None):
-         """Initializes a Base instance.
-         If id is provided, assigns it to the instance's id attribute.
-         Otherwise, increments __nb_objects and assigns the new value to the instance's id attribute.
-        """
-        if id is not None:
-            self.id = id
-        else:
-            Base.__nb_objects += 1
-            self.id = Base.__nb_objects
+    __nb_objects = 0
 
-    @staticmethod
-    def to_json_string(list_dictionaries):
-        """
-        Converts a list of dictionaries to its JSON string representation.
+   def __init__(self, id=None):
+   """Initializes a Base instance.
+    If id is provided, assigns it to the instance's id attribute.
+   """
+   if id is not None:
+       self.id = id
+   else:
+       Base.__nb_objects += 1
+       self.id = Base.__nb_objects
 
-        Args:
-            list_dictionaries (list): A list of dictionaries.
+   @staticmethod
+   def to_json_string(list_dictionaries):
+   """Converts a list of dictionaries to its JSON string representation.
+    Args:
+        list_dictionaries (list): A list of dictionaries.
+    Returns:
+           str: The JSON string representation of the list of dictionaries.
+   """
+   if list_dictionaries is None or len(list_dictionaries) == 0:
+       return "[]"
+   return json.dumps(list_dictionaries)
 
-        Returns:
-            str: The JSON string representation of the list of dictionaries.
-        """
-        if list_dictionaries is None or len(list_dictionaries) == 0:
-            return "[]"
-        return json.dumps(list_dictionaries)
+   @classmethod
+   def save_to_file(cls, list_objs):
+   """
+    Saves a list of instances to a JSON file.
+    Args:
+       list_objs (list): A list of instances.
+    Returns:
+          None
+   """
+   file_name = cls.__name__ + ".json"
+   if list_objs is None:
+       list_objs = []
+    json_string = cls.to_json_string([obj.to_dictionary() for obj in list_objs])
+    with open(file_name, "w") as file:
+        file.write(json_string)
 
-    @classmethod
-    def save_to_file(cls, list_objs):
-        """
-        Saves a list of instances to a JSON file.
-
-        Args:
-            list_objs (list): A list of instances.
-
-        Returns:
-            None
-        """
-        file_name = cls.__name__ + ".json"
-        if list_objs is None:
-            list_objs = []
-        json_string = cls.to_json_string([obj.to_dictionary() for obj in list_objs])
-        with open(file_name, "w") as file:
-            file.write(json_string)
-
-    @staticmethod
-    def from_json_string(json_string):
-        """
+   @staticmethod
+   def from_json_string(json_string):
+   """
         Converts a JSON string representation to a list of dictionaries.
 
         Args:
@@ -70,7 +63,7 @@ class Base:
 
         Returns:
             list: The list of dictionaries.
-        """
+    """
         if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
