@@ -53,7 +53,8 @@ class Base:
         file_name = cls.__name__ + ".json"
         if list_objs is None:
             list_objs = []
-        json_string = cls.to_json_string([obj.to_dictionary() for obj in list_objs])
+        json_list = [obj.to_dictionary() for obj in list_objs]
+        json_string = cls.to_json_string(json_list)
         with open(file_name, "w") as file:
             file.write(json_string)
 
@@ -73,7 +74,7 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        """Creates an instance with all attributes already set based on a dictionary.
+        """Creates instance with attributes already set based on dictionary.
 
         Args:
             **dictionary (dict): A dictionary containing attribute values.
