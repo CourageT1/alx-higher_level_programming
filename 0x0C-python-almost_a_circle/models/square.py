@@ -4,7 +4,7 @@ from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-     """Represent a square."""
+    """Represent a square."""
 
     def __init__(self, size, x=0, y=0, id=None):
         """
@@ -60,9 +60,6 @@ class Square(Rectangle):
                 - 3rd argument represents x attribute.
                 - 4th argument represents y attribute.
             **kwargs: Keyword arguments representing attribute assignments.
-
-        Returns:
-            None
         """
         if args:
             attrs = ['id', 'size', 'x', 'y']
