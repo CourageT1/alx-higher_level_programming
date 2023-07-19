@@ -15,8 +15,8 @@ class Rectangle(Base):
             x (int): The x coordinate of the new Rectangle.
             y (int): The y coordinate of the new Rectangle.
             id (int): The identity of the new Rectangle.
-        
-        Raises:
+ 
+     Raises:
             TypeError: If either width or height is not an int.
             ValueError: If either width or height <= 0.
             TypeError: If either x or y is not an int.
