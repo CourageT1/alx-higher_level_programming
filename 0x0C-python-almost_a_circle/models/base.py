@@ -17,10 +17,9 @@ class Base:
      __nb_objects = 0
 
     def __init__(self, id=None):
-        """
-        Initializes a Base instance.
-        If id is provided, assigns it to the instance's id attribute.
-        Otherwise, increments __nb_objects and assigns the new value to the instance's id attribute.
+         """Initializes a Base instance.
+         If id is provided, assigns it to the instance's id attribute.
+         Otherwise, increments __nb_objects and assigns the new value to the instance's id attribute.
         """
         if id is not None:
             self.id = id
