@@ -2,6 +2,7 @@
 """Defines a base model class."""
 import json
 import csv
+import os
 import turtle
 
 
@@ -15,63 +16,64 @@ class Base:
 
     __nb_objects = 0
 
-   def __init__(self, id=None):
-   """Initializes a Base instance.
-    If id is provided, assigns it to the instance's id attribute.
-   """
-   if id is not None:
-       self.id = id
-   else:
-       Base.__nb_objects += 1
-       self.id = Base.__nb_objects
+    def __init__(self, id=None):
+        """Initializes a Base instance.
+        If id is provided, assigns it to the instance's id attribute.
+        """
+        if id is not None:
+            self.id = id
+        else:
+            Base.__nb_objects += 1
+            self.id = Base.__nb_objects
 
-   @staticmethod
-   def to_json_string(list_dictionaries):
-   """Converts a list of dictionaries to its JSON string representation.
-    Args:
-        list_dictionaries (list): A list of dictionaries.
-    Returns:
-           str: The JSON string representation of the list of dictionaries.
-   """
-   if list_dictionaries is None or len(list_dictionaries) == 0:
-       return "[]"
-   return json.dumps(list_dictionaries)
+    @staticmethod
+    def to_json_string(list_dictionaries):
+        """Converts a list of dictionaries to its JSON string representation.
 
-   @classmethod
-   def save_to_file(cls, list_objs):
-   """
-    Saves a list of instances to a JSON file.
-    Args:
-       list_objs (list): A list of instances.
-    Returns:
-          None
-   """
-   file_name = cls.__name__ + ".json"
-   if list_objs is None:
-       list_objs = []
-    json_string = cls.to_json_string([obj.to_dictionary() for obj in list_objs])
-    with open(file_name, "w") as file:
-        file.write(json_string)
+        Args:
+            list_dictionaries (list): A list of dictionaries.
 
-   @staticmethod
-   def from_json_string(json_string):
-   """
-        Converts a JSON string representation to a list of dictionaries.
+        Returns:
+            str: The JSON string representation of the list of dictionaries.
+        """
+        if list_dictionaries is None or len(list_dictionaries) == 0:
+            return "[]"
+        return json.dumps(list_dictionaries)
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        """Saves a list of instances to a JSON file.
+
+        Args:
+            list_objs (list): A list of instances.
+
+        Returns:
+            None
+        """
+        file_name = cls.__name__ + ".json"
+        if list_objs is None:
+            list_objs = []
+        json_string = cls.to_json_string([obj.to_dictionary() for obj in list_objs])
+        with open(file_name, "w") as file:
+            file.write(json_string)
+
+    @staticmethod
+    def from_json_string(json_string):
+        """Converts a JSON string representation to a list of dictionaries.
 
         Args:
             json_string (str): The JSON string representation.
 
         Returns:
             list: The list of dictionaries.
-    """
+        """
         if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
-        """
-        Creates an instance with all attributes already set based on a dictionary.
+        """Creates an instance with all attributes already set based on a dictionary.
 
         Args:
             **dictionary (dict): A dictionary containing attribute values.
@@ -90,8 +92,7 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        """
-        Loads a list of instances from a JSON file.
+        """Loads a list of instances from a JSON file.
 
         Returns:
             list: The list of instances loaded from the file.
@@ -105,10 +106,9 @@ class Base:
         instances = [cls.create(**dictionary) for dictionary in dictionaries]
         return instances
 
-@classmethod
+    @classmethod
     def save_to_file_csv(cls, list_objs):
-        """
-        Serializes a list of instances to a CSV file.
+        """Serializes a list of instances to a CSV file.
 
         Args:
             list_objs (list): A list of instances.
@@ -127,8 +127,7 @@ class Base:
 
     @classmethod
     def load_from_file_csv(cls):
-        """
-        Deserializes a list of instances from a CSV file.
+        """Deserializes a list of instances from a CSV file.
 
         Returns:
             list: The list of instances loaded from the file.
@@ -145,10 +144,9 @@ class Base:
                 instances.append(instance)
         return instances
 
-@staticmethod
+    @staticmethod
     def draw(list_rectangles, list_squares):
-        """
-        Opens a window and draws all the Rectangles and Squares.
+        """Opens a window and draws all the Rectangles and Squares.
 
         Args:
             list_rectangles (list): A list of Rectangle instances.
