@@ -4,7 +4,7 @@ from models.base import Base
 
 
 class Rectangle(Base):
-     """Represent a rectangle."""
+    """Represent a rectangle."""
 
     def __init__(self, width, height, x=0, y=0, id=None):
         """Initialize a new Rectangle.
@@ -15,13 +15,15 @@ class Rectangle(Base):
             x (int): The x coordinate of the new Rectangle.
             y (int): The y coordinate of the new Rectangle.
             id (int): The identity of the new Rectangle.
+        
         Raises:
-            TypeError: If either of width or height is not an int.
-            ValueError: If either of width or height <= 0.
-            TypeError: If either of x or y is not an int.
-            ValueError: If either of x or y < 0.
+            TypeError: If either width or height is not an int.
+            ValueError: If either width or height <= 0.
+            TypeError: If either x or y is not an int.
+            ValueError: If either x or y < 0.
         """
         super().__init__(id)
+        self.__width = self.__height = self.__x = self.__y = None
         self.width = width
         self.height = height
         self.x = x
@@ -29,7 +31,7 @@ class Rectangle(Base):
 
     @property
     def width(self):
-         """Set/get the width of the Rectangle."""
+        """Set/get the width of the Rectangle."""
         return self.__width
 
     @width.setter
@@ -68,7 +70,7 @@ class Rectangle(Base):
 
     @property
     def y(self):
-         """Set/get the y coordinate of the Rectangle."""
+        """Set/get the y coordinate of the Rectangle."""
         return self.__y
 
     @y.setter
@@ -80,20 +82,13 @@ class Rectangle(Base):
         self.__y = value
 
     def area(self):
-        """
-        Calculates and returns the area of the Rectangle instance.
-
-        Returns:
-            int: The area value.
-        """
+        """Calculates and returns the area of the Rectangle instance."""
         return self.width * self.height
 
     def display(self):
         """
-        Prints a representation of the Rectangle instance using '#' characters, taking into account the x and y coordinates.
-
-        Returns:
-            None
+        Prints a representation of the Rectangle instance using '#' characters,
+        taking into account the x and y coordinates.
         """
         for _ in range(self.y):
             print()
@@ -112,9 +107,6 @@ class Rectangle(Base):
                 - 4th argument represents x attribute
                 - 5th argument represents y attribute
             **kwargs: Keyword arguments representing attribute assignments.
-
-        Returns:
-            None
         """
         if args:
             attrs = ['id', 'width', 'height', 'x', 'y']
@@ -126,12 +118,7 @@ class Rectangle(Base):
                 setattr(self, key, value)
 
     def to_dictionary(self):
-        """
-        Returns a dictionary representation of the Rectangle instance.
-
-        Returns:
-            dict: The dictionary representation.
-        """
+        """Returns a dictionary representation of the Rectangle instance."""
         return {
             'id': self.id,
             'width': self.width,
@@ -141,11 +128,5 @@ class Rectangle(Base):
         }
 
     def __str__(self):
-        """
-        Returns a custom string representation of the Rectangle instance.
-
-        Returns:
-            str: The custom string representation.
-        """
-        return f"[Rectangle] ({self.id}) {self.x}/{self.y}
-        - {self.width}/{self.height}"
+        """Returns a custom string representation of the Rectangle instance."""
+        return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
